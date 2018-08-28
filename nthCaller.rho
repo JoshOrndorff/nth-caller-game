@@ -1,0 +1,30 @@
+contract @"nthCallerFactory"(gameId, @n) = {
+  new countCh in {
+
+    // Count state channel starts at one
+    countCh!(1)|
+
+    // Contestants call with their name and a channel
+    // to receive their result
+    contract gameId(@name, result) = {
+
+      for(@oldCount <- countCh) {
+      
+        if (n == oldCount) {
+         result!("Congrats " ++ name ++ ", You win!")
+        }
+        else {
+          result!("Sorry, " ++ name ++ ", try again.")|
+          countCh!(oldCount + 1)
+        }
+      }
+    }
+  }
+}
+
+/*
+Nice feature. When the 100th caller is reached, nothing is
+written back to countCh, which means the for on line 7
+will never comm again. Callers who are too late are
+not told to try again, and the game just dies.
+*/

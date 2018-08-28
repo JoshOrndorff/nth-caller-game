@@ -1,0 +1,27 @@
+{
+  "name": "nthcaller",
+  "version": "0.0.1",
+  "description": "RChain game. Tenth caller wins the prize.",
+  "main": "server.js",
+  "scripts": {
+    "test": "rnode deploy --from 0x0 --nonce 0 --phlo-price 0 --phlo-limit 0 integrationTest.rho && rnode propose",
+    "fresh": "rm -rf .rnode/rspace casper-block-store && rnode run --data_dir .rnode",
+    "deploy-contract": "rnode deploy --from 0x0 --nonce 0 --phlo-price 0 --phlo-limit 0 nthCaller.rho && rnode propose",
+    "with-nodemon": "nodemon server.js"
+  },
+  "keywords": [
+    "RChain",
+    "Rholang",
+    "Dapp",
+    "RNode",
+    "game"
+  ],
+  "author": "Joshy Orndorff",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "grpc": "^1.14.1",
+    "rchain-api": "github:JoshOrndorff/RChain-API"
+  }
+}
