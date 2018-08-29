@@ -128,7 +128,7 @@ npm test
 ```
 
 ## Writing a UI
-We'll write our user interface in HTML and javascript so that users can play the game in a web browser. We use the `fetch` to make calls to the server. If you're not familiar with fetch, you can get a [crash course](https://www.youtube.com/watch?v=Oive66jrwBs) or just copy-paste the code I've written for you.
+We'll write our user interface in HTML and javascript so that users can play the game in a web browser. We use `fetch` to make calls to the server. If you're not familiar with fetch, you can get a [crash course](https://www.youtube.com/watch?v=Oive66jrwBs) or just copy-paste the code I've written for you.
 
 For now, the index.html contains some brief instructions, controls to register a new game, and a reference to our client-side javascript.
 ```
