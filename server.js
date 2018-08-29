@@ -3,7 +3,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const grpc = require('grpc')
-const {RNode, RHOCore} = require("rchain-api") //npm install --save github:JoshOrndorff/RChain-API
+const {RNode, RHOCore} = require("rchain-api") // npm install --save github:JoshOrndorff/RChain-API
 
 // Connect to the RNode
 var host   = process.argv[2] ? process.argv[2] : "localhost"
@@ -27,16 +27,16 @@ app.listen(uiPort, () => {
 
 // Handle users registering new games
 app.post('/register', (req, res) => {
-  var code = `@"nthCallerFactory"!("${req.body.id}", ${req.body.n})`
-  var deployData = {term: code,
-                     timestamp: new Date().valueOf()
-                     // from: '0x1',
-                     // nonce: 0,
+  let code = `@"nthCallerFactory"!("${req.body.id}", ${req.body.n})`
+  let deployData = {term: code,
+                    timestamp: new Date().valueOf(),
                    }
 
   myNode.doDeploy(deployData).then(result => {
+    // Force RNode to make a block immediately
     return myNode.createBlock()
   }).then(result => {
+    // Send back a response
     res.end(JSON.stringify({message: result}))
   }).catch(oops => { console.log(oops); })
 })
@@ -47,31 +47,31 @@ app.post('/register', (req, res) => {
 app.post('/call', (req, res) => {
 
   // TODO this should be unforgeable. Can I make one from JS?
-  var ack = Math.random().toString(36).substring(7)
+  let ack = Math.random().toString(36).substring(7)
 
-  var code = `@"${req.body.id}"!("${req.body.name}", "${ack}")`
-  var deployData = {term: code,
-                    timestamp: new Date().valueOf()
-                    // from: '0x1',
-                    // nonce: 0,
+  let code = `@"${req.body.id}"!("${req.body.name}", "${ack}")`
+  let deployData = {term: code,
+                    timestamp: new Date().valueOf(),
                    }
 
   myNode.doDeploy(deployData).then(_ => {
+    // Force RNode to make a block immediately
     return myNode.createBlock()
   }).then(_ => {
-    // Get the data from the node
+    // Get the data from RNode
     return myNode.listenForDataAtName(ack)
   }).then((blockResults) => {
-    console.log(blockResults.length)
+    // If no data is on RChain, send back a 404
     if(blockResults.length === 0){
-      // TODO how to handle case there no blocks come back
-      console.warn("No blocks returned! Should get 404")
-      res.code = 404
-      res.end("No data found")
-      return // Do I need return here?
+      res.status(404).send("Not found.")
     }
+    console.log("should never be here")
+    // Grab back the last message sent
     var lastBlock = blockResults.slice(-1).pop()
     var lastDatum = lastBlock.postBlockData.slice(-1).pop()
-    res.end(JSON.stringify({message: RHOCore.toRholang(lastDatum)}))
+    res.end(JSON.stringify(
+      // Rholang process should be a string literal
+      {message: RHOCore.toRholang(lastDatum)}
+    ))
   }).catch(oops => { console.log(oops); })
 })
