@@ -4,14 +4,42 @@ new myGame, ack, stdoutAck(`rho:io:stdoutAck`) in {
   @"nthCallerFactory"!(*myGame, 3)|
 
   for(_ <- ack) {
-  myGame!("Alice", *ack)   | for(res <- ack) {
-  stdoutAck!(*res, *ack)   | for(_ <- ack) {
-  myGame!("Bob", *ack)     | for(res <- ack) {
-  stdoutAck!(*res, *ack)   | for(_ <- ack) {
-  myGame!("Charlie", *ack) | for(res <- ack) {
-  stdoutAck!(*res, *ack)   | for(_ <- ack) {
-  myGame!("Denise", *ack)  | for(res <- ack) {
-  stdoutAck!(*res, *ack)
+    myGame!("Alice", *ack)   | for(res <- ack) {
+    stdoutAck!(*res, *ack)   | for(_ <- ack) {
+
+    myGame!("Bob", *ack)     | for(res <- ack) {
+    stdoutAck!(*res, *ack)   | for(_ <- ack) {
+
+    myGame!("Charlie", *ack) | for(res <- ack) {
+    stdoutAck!(*res, *ack)   | for(_ <- ack) {
+
+    myGame!("Denise", *ack)  | for(res <- ack) {
+    stdoutAck!(*res, *ack)
   }}}}}}}}
 
 }
+/*
+|
+
+// Try again with a public name for good measure
+new  ack, stdoutAck(`rho:io:stdoutAck`) in {
+
+  stdoutAck!("Creating new game. Third caller wins.", *ack)|
+  @"nthCallerFactory"!("myGame", 3)|
+
+  for(_ <- ack) {
+    @"myGame"!("Alice", *ack)   | for(res <- ack) {
+    stdoutAck!(*res, *ack)   | for(_ <- ack) {
+
+    @"myGame"!("Bob", *ack)     | for(res <- ack) {
+    stdoutAck!(*res, *ack)   | for(_ <- ack) {
+
+    @"myGame"!("Charlie", *ack) | for(res <- ack) {
+    stdoutAck!(*res, *ack)   | for(_ <- ack) {
+
+    @"myGame"!("Denise", *ack)  | for(res <- ack) {
+    stdoutAck!(*res, *ack)
+  }}}}}}}}
+
+}
+*/
