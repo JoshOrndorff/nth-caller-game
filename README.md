@@ -1,4 +1,4 @@
-# Write Your Frist Dapp
+# Write Your First Dapp
 This repository is a tutorial on writing your first decentralized application on RChain. It assumes some familiarity with the command line, [RNode software](https://developer.rchain.coop), and the [node.js ecosystem](https://nodejs.org/en/). I will walk you through building a simple be-the-tenth-caller game dapp in a hands-on way. I encourage you to experiment as we move along. RChain is still in a pre-release state and its ecosystem is still developing. When we have to work around an issue with the current RNode, I do my best to point it out.
 
 Written By: Joshy Orndorff
