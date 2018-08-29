@@ -9,7 +9,7 @@ contract @"nthCallerFactory"(gameId, @n) = {
     contract gameId(@name, result) = {
 
       for(@oldCount <- countCh) {
-      
+
         if (n == oldCount) {
          result!("Congrats " ++ name ++ ", You win!")
         }

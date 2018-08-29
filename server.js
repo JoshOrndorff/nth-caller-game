@@ -3,19 +3,20 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const grpc = require('grpc')
-const {RNode, RHOCore} = require("rchain-api") // npm install --save github:JoshOrndorff/RChain-API
+const {RNode, RHOCore} = require("rchain-api")
 
-// Connect to the RNode
+// Parse command-line arguments
 var host   = process.argv[2] ? process.argv[2] : "localhost"
 var port   = process.argv[3] ? process.argv[3] : 40401
 var uiPort = process.argv[4] ? process.argv[4] : 8080
 
-// Start the express app
+// Configure the express app and RNode connection
 var myNode = RNode(grpc, {host, port})
 var app = express()
 app.use(bodyParser.json())
 app.use(express.static(__dirname))
 
+// Start the express app
 app.listen(uiPort, () => {
   console.log("Nth Caller Dapp server started.")
   console.log(`Connected to RNode at ${host}:${port}.`)
