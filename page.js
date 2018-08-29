@@ -18,26 +18,26 @@ document.addEventListener("DOMContentLoaded", () => {
    * a new game contract
    */
   function register(){
+    // Validate form data
+    if (newGameId.value === "" || n.value === ""){
+      console.log("GameId and Winning Caller are required. No Game Registered.")
+      return
+    }
 
     // Setup the request
-    let request = {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        id: newGameId.value,
-        n: n.value,
-      })
+    let body = {
+      id: newGameId.value,
+      n: parseInt(n.value, 10),
     }
 
     // Actually send it
-    fetch('/register', request)
-    .then(res => {return res.json()})
+    makePost('/register', body)
     .then(data => {
       console.log(data.message)
     })
+
+    // Clear the DOM to prevent double posts
+    newGameId.value = ""
   }
 
   /**
@@ -45,25 +45,40 @@ document.addEventListener("DOMContentLoaded", () => {
    * corresponding game. Reports result in DOM.
    */
   function call(){
+    // Validate form data
+    if (callGameId.value === ""){
+      console.log("GameId is required. No Call Made.")
+      return
+    }
 
-    // Setup the request
+    let body = {
+      id: callGameId.value,
+      name: name.value,
+    }
+
+    makePost('/call', body)
+    .then(data => {
+      resultP.innerHTML = data.message //TODO change so right thing goes in dom.
+    })
+  }
+
+  /**
+   * Abstract the boring part of making a post request
+   * @param route The request destination as a string. ex: '/call'
+   * @param body An object of the data to be passed
+   * @return A promise for a response object
+   */
+  function makePost(route, body){
     let request = {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-type': 'application/json',
       },
-      body: JSON.stringify({
-        id: callGameId.value,
-        name: name.value,
-      })
+      body: JSON.stringify(body)
     }
 
-    // Actually send it
-    fetch('/call', request)
+    return fetch(route, request)
     .then(res => {return res.json()})
-    .then(data => {
-      resultP.innerHTML = data.message //TODO change so right thing goes in dom.
-    })
   }
 })
