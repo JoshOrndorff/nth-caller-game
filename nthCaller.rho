@@ -23,7 +23,7 @@ contract @"nthCallerFactory"(gameId, @n) = {
 }
 
 /*
-Nice feature. When the 100th caller is reached, nothing is
+Nice feature. When the nth caller is reached, nothing is
 written back to countCh, which means the for on line 7
 will never comm again. Callers who are too late are
 not told to try again, and the game just dies.
