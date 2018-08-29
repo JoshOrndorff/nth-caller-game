@@ -61,17 +61,18 @@ app.post('/call', (req, res) => {
     // Get the data from RNode
     return myNode.listenForDataAtName(ack)
   }).then((blockResults) => {
-    // If no data is on RChain, send back a 404
+    // If no data is on RChain
     if(blockResults.length === 0){
-      res.status(404).send("Not found.")
+      res.end(JSON.stringify({success: false}))
+      return
     }
-    console.log("should never be here")
     // Grab back the last message sent
     var lastBlock = blockResults.slice(-1).pop()
     var lastDatum = lastBlock.postBlockData.slice(-1).pop()
     res.end(JSON.stringify(
       // Rholang process should be a string literal
-      {message: RHOCore.toRholang(lastDatum)}
-    ))
+      {success: true,
+       message: RHOCore.toRholang(lastDatum),
+     }))
   }).catch(oops => { console.log(oops); })
 })

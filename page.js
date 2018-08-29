@@ -46,19 +46,28 @@ document.addEventListener("DOMContentLoaded", () => {
    */
   function call(){
     // Validate form data
-    if (callGameId.value === ""){
+    if (callGameId.value === "") {
       console.log("GameId is required. No Call Made.")
       return
     }
 
+    // Setup the request
     let body = {
       id: callGameId.value,
       name: name.value,
     }
 
+    // Actually send it
     makePost('/call', body)
     .then(data => {
-      resultP.innerHTML = data.message //TODO change so right thing goes in dom.
+
+      // See whether we found any data
+      if (!data.success) {
+        console.log("No such game found in RChain")
+      }
+      else {
+        resultP.innerHTML = data.message
+      }
     })
   }
 
