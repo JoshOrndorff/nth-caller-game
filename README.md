@@ -2,7 +2,7 @@
 This repository is a tutorial on writing your first decentralized application on RChain. It assumes some familiarity with the command line, [RNode software](https://developer.rchain.coop), and the [node.js ecosystem](https://nodejs.org/en/). I will walk you through building a simple be-the-tenth-caller game dapp in a hands-on way. I encourage you to experiment as we move along. RChain is still in a pre-release state and its ecosystem is still developing. When we have to work around an issue with the current RNode, I do my best to point it out.
 
 Written By: Joshy Orndorff
-RNode Version: 0.6.1 (acde1c1a2bc983838a38118653905b0c85ab9c58)
+RNode Version: [0.6.1 (acde1c1a2bc983838a38118653905b0c85ab9c58)](https://github.com/rchain/rchain/releases/tag/v0.6.1)
 
 ## Just Make This Thing Run!
 It's ~~nice~~ necessary to know what you're building before you start building it. So you may want to launch the project and play with it before you build it from scratch.
