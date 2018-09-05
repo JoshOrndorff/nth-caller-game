@@ -1,6 +1,6 @@
 {
   "name": "nthcaller",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "RChain game. Tenth caller wins the prize.",
   "main": "server.js",
   "scripts": {
@@ -26,6 +26,6 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "grpc": "^1.14.1",
-    "rchain-api": "github:JoshOrndorff/RChain-API"
+    "rchain-api": "github:JoshOrndorff/RChain-API#539b710c308b26c097984865e8df33b9e6258db0"
   }
 }
