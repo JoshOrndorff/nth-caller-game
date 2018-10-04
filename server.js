@@ -60,7 +60,7 @@ app.post('/call', (req, res) => {
     return myNode.createBlock()
   }).then(_ => {
     // Get the data from RNode
-    return myNode.listenForDataAtName(ack)
+    return myNode.listenForDataAtPublicName(ack)
   }).then((blockResults) => {
     // If no data is on RChain
     if(blockResults.length === 0){
