@@ -48,7 +48,7 @@ git checkout starter
 ## The Smart Contract
 The code that runs on the blockchain is written in a [rholang](https://developer.rchain.coop/tutorial/) which was designed specifically for the concurrent computing capabilities of the RChain platform. Create a new file named `nthCaller.rho` and put this content in it
 
-```
+```scala
 contract @"nthCallerFactory"(gameId, @n) = {
   new countCh in {
 
@@ -94,7 +94,7 @@ npm run deploy-contract
 
 You now have the smart contract deployed to the network and ready to be used. Since we haven't written the user interface yet, let's test it with some other rholang code. Create `integrationTest.rho` with these tests written in.
 
-```
+```scala
 new myGame, ack, stdoutAck(`rho:io:stdoutAck`) in {
 
   stdoutAck!("Creating new game. Third caller wins.", *ack)|
@@ -122,17 +122,17 @@ These tests read just like a story. A new 3rd-caller-wins game is created on the
 You can run these tests by deploying them to your node.
 ```
 # If you're building from scratch
-rnode deploy --from 0x0 --nonce 0 --phlo-price 0 --phlo-limit 0 integrationTest.rho
+$ rnode deploy --from 0x0 --nonce 0 --phlo-price 0 --phlo-limit 0 integrationTest.rho
 
 # If you're building from starter code
-npm test
+$ npm test
 ```
 
 ## Writing a UI
 We'll write our user interface in HTML and javascript so that users can play the game in a web browser. We use `fetch` to make calls to the server. If you're not familiar with fetch, you can get a [crash course](https://www.youtube.com/watch?v=Oive66jrwBs) or just copy-paste the code I've written for you.
 
 For now, the index.html contains some brief instructions, controls to register a new game, and a reference to our client-side javascript.
-```
+```html
 <!DOCTYPE html>
 
 <html>
@@ -157,7 +157,7 @@ For now, the index.html contains some brief instructions, controls to register a
 
 The logic that handles the button click goes in `page.js`
 
-```
+```javascript
 "use strict"
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -232,7 +232,7 @@ The actual event handler does as its comments say. It first ensures that neither
 
 We now have a _beautiful_ front end that makes http POST requests, and a running RNode that speaks gRPC. We'll glue them together using an express.js web server. Again, you can take a [crash course](https://www.youtube.com/watch?v=gnsO8-xJ8rs) or just copy-paste the code I've prepared. We'll also be using the [RChain-API node module](https://github.com/joshorndorff/RChain-API). Big thanks to Dan Connolly.
 
-```
+```javascript
 "use strict"
 
 const express = require('express');
@@ -308,7 +308,7 @@ We can now add the feature to call the contract and try to win. This is similar 
 
 To call in and try to win, the user has to supply the gameId that they want to call, and their own name. So let's give them fields for that in the html file. Replace the comment from before with:
 
-```
+```html
 <h1>Play an existing game</h1>
 Game ID: <input id="call-game-id" type="text" />
 Your Name: <input id="name" type="text" />
@@ -317,17 +317,17 @@ Your Name: <input id="name" type="text" />
 ```
 
 Now in your `page.js` you can replace the three comments with
-```
+```javascript
 let callGameId = document.getElementById('call-game-id')
 let name = document.getElementById('name')
 let resultP = document.getElementById('status')
 ```
 
-```
+```javascript
 document.getElementById('call').addEventListener('click', call)
 ```
 
-```
+```javascript
 /**
  * Grabs gameId and username from DOM and calls the
  * corresponding game. Reports result in DOM.
@@ -362,7 +362,7 @@ function call(){
 
 This click handler is slightly more complex this time because it is possible that the user tried to cal la gameId that has never been registered. This will be true server-side as well. In `server.js` replace the comment with
 
-```
+```javascript
 // Handle users calling in to win
 app.post('/call', (req, res) => {
 
@@ -412,7 +412,7 @@ For one thing, our UI looks straight out of 1997. A little styling would go a lo
 **NPM Scripts**
 If you built from scratch, you may be wondering how to get those nice npm scripts. All it takes is saving [my .rnode directory](https://github.com/JoshOrndorff/nth-caller-game/tree/master/.rnode), and adding the scripts to your `package.json` file.
 
-```
+```javascript
 "scripts": {
   "test": "rnode deploy --from 0x0 --nonce 0 --phlo-price 0 --phlo-limit 0 integrationTest.rho && rnode propose",
   "fresh": "rm -rf .rnode/rspace rm -rf .rnode/casper-block-store && rnode run --data_dir .rnode",
