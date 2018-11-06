@@ -31,6 +31,9 @@ app.post('/register', (req, res) => {
   let code = `@"nthCallerFactory"!("${req.body.id}", ${req.body.n})`
   let deployData = {term: code,
                     timestamp: new Date().valueOf(),
+                    phloLimit: { value: 999999 },
+                    phloPrice: { value: 1 },
+                    from: "0x0",
                    }
 
   myNode.doDeploy(deployData).then(result => {
@@ -53,6 +56,9 @@ app.post('/call', (req, res) => {
   let code = `@"${req.body.id}"!("${req.body.name}", "${ack}")`
   let deployData = {term: code,
                     timestamp: new Date().valueOf(),
+                    phloLimit: { value: 999999 },
+                    phloPrice: { value: 1 },
+                    from: "0x0",
                    }
 
   myNode.doDeploy(deployData).then(_ => {
