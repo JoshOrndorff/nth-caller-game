@@ -4,8 +4,7 @@
   "description": "RChain game. Tenth caller wins the prize.",
   "main": "server.js",
   "scripts": {
-    "test": "rnode deploy --from 0x0 --nonce 0 --phlo-price 0 --phlo-limit 0 integrationTest.rho && rnode propose",
-    "fresh": "rm -rf .rnode/rspace rm -rf .rnode/casper-block-store && rnode run --data_dir .rnode",
+    "test": "rnode deploy --from 0x0 --nonce 0 --phlo-price 1 --phlo-limit 999999 integrationTest.rho && rnode propose",
     "deploy-contract": "rnode deploy --from 0x0 --nonce 0 --phlo-price 1 --phlo-limit 999999 nthCaller.rho && rnode propose",
     "with-nodemon": "nodemon server.js"
   },
@@ -26,6 +25,7 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "grpc": "^1.14.1",
-    "rchain-api": "github:rchain-community/RChain-API"
+    "rchain-api": "github:rchain-community/RChain-API",
+    "freshr": "^0.2.0"
   }
 }

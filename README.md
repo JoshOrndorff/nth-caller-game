@@ -13,7 +13,7 @@ It's ~~nice~~ necessary to know what you're building before you start building i
 3. Clone the repository `git clone https://github.com/JoshOrndorff/nth-caller-game`
 4. Change into the project directory `cd nth-caller-game`
 5. Install dependencies `npm install`
-6. Start a fresh, pre-configured RNode `npm run fresh`
+6. Start a fresh, pre-configured RNode `freshr`
 7. Deploy the rholang smart contract `npm run deploy-contract`
 8. (Optional) Run the integration tests `npm test`
 9. Launch the dapp frontend `npm start <RNode host> <RNode gRPC port> <frontend port>`
